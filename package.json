@@ -1,0 +1,28 @@
+{
+  "name": "rezajaber-sarah-ui",
+  "version": "1.0.9",
+  "main": "dist/sarah-ui.umd.js",
+  "module": "dist/sarah-ui.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/sarah-ui.es.js",
+      "require": "./dist/sarah-ui.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "src",
+    "bin"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.0.0"
+  }
+}
