@@ -1,19 +1,19 @@
 {
   "name": "rezajaber-sarah-ui",
-  "version": "1.0.13",
-  "main": "dist/sarah-ui.umd.js",
-  "module": "dist/sarah-ui.es.js",
+  "version": "1.0.0",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/sarah-ui.es.js",
       "require": "./dist/sarah-ui.umd.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./button": "./dist/components/Button/index.js",
+    "./style.css": "./dist/style.css"
   },
+  "main": "./dist/sarah-ui.umd.js",
+  "module": "./dist/sarah-ui.es.js",
   "files": [
-    "dist",
-    "src",
-    "bin"
+    "dist"
   ],
   "scripts": {
     "build": "vite build"

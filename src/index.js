@@ -1,9 +1,5 @@
-import Button from './components/Button'
+export * from './components/Button'
+// Export other components similarly
 
-export { Button }
-
-export default {
-  install: (app) => {
-    app.component('SarahButton', Button)
-  }
-} 
+import installer from './installer'
+export default installer

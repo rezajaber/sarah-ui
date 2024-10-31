@@ -1,3 +1,9 @@
 import Button from './Button.vue'
 
-export default Button 
+export const SarahButton = Button
+
+export default {
+  install: (app) => {
+    app.component('SarahButton', Button)
+  }
+} 

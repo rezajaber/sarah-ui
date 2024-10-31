@@ -1,12 +1,16 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
 
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/index.js',
-      name: 'sarah-ui',
-      fileName: (format) => `sarah-ui.${format}.js`
+      entry: {
+        'sarah-ui': resolve(__dirname, 'src/index.js'),
+        'components/Button/index': resolve(__dirname, 'src/components/Button/index.js'),
+      },
+      formats: ['es', 'umd'],
+      fileName: (format, entryName) => `${entryName}.${format}.js`
     },
     rollupOptions: {
       external: ['vue'],
@@ -15,8 +19,7 @@ export default defineConfig({
           vue: 'Vue'
         }
       }
-    },
-    cssCodeSplit: true
+    }
   },
   plugins: [vue()]
 }) 
