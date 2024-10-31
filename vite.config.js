@@ -1,13 +1,11 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
 
 export default defineConfig({
-  plugins: [vue()],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.js'),
-      name: 'SarahUI',
+      entry: 'src/index.js',
+      name: 'sarah-ui',
       fileName: (format) => `sarah-ui.${format}.js`
     },
     rollupOptions: {
@@ -17,6 +15,8 @@ export default defineConfig({
           vue: 'Vue'
         }
       }
-    }
-  }
+    },
+    cssCodeSplit: true
+  },
+  plugins: [vue()]
 }) 
