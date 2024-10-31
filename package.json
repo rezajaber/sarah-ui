@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/YOUR_USERNAME/sarah-ui/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/sarah-ui#readme"
+  "homepage": "https://github.com/YOUR_USERNAME/sarah-ui#readme",
+  "bin": {
+    "sarah-ui": "./bin/cli.js"
+  }
 }
