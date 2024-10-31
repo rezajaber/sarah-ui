@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 
-const fs = require('fs-extra')
-const path = require('path')
-const { execSync } = require('child_process')
-const prompts = require('prompts')
+import fs from 'fs-extra'
+import path from 'path'
+import { execSync } from 'child_process'
+import prompts from 'prompts'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const [,, command, component] = process.argv
 
