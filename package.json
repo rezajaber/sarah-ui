@@ -1,6 +1,6 @@
 {
   "name": "rezajaber-sarah-ui",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "dist/sarah-ui.umd.js",
   "module": "dist/sarah-ui.es.js",
   "exports": {
