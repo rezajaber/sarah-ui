@@ -3,11 +3,18 @@
 const fs = require('fs-extra')
 const path = require('path')
 const { execSync } = require('child_process')
+const prompts = require('prompts')
 
 const [,, command, component] = process.argv
 
 const COMPONENTS_DIR = path.join(__dirname, '../src/components')
 const TARGET_DIR = process.cwd()
+
+async function listComponents() {
+  const components = fs.readdirSync(COMPONENTS_DIR)
+  console.log('\nAvailable components:')
+  components.forEach(comp => console.log(`- ${comp.toLowerCase()}`))
+}
 
 async function exportComponent(componentName) {
   const componentDir = path.join(COMPONENTS_DIR, componentName)
@@ -17,13 +24,29 @@ async function exportComponent(componentName) {
     // Check if component exists
     if (!fs.existsSync(componentDir)) {
       console.error(`Component ${componentName} not found`)
+      await listComponents()
       return
+    }
+
+    // Check if component already exists in project
+    if (fs.existsSync(targetComponentDir)) {
+      const response = await prompts({
+        type: 'confirm',
+        name: 'overwrite',
+        message: `Component ${componentName} already exists. Overwrite?`,
+        initial: false
+      })
+
+      if (!response.overwrite) {
+        console.log('Export cancelled')
+        return
+      }
     }
 
     // Copy component files
     await fs.copy(componentDir, targetComponentDir)
 
-    // Create or update index.js for the component
+    // Create or update index.js
     const indexContent = `
 import ${componentName} from './${componentName}.vue'
 
@@ -40,20 +63,41 @@ export default {
       indexContent.trim()
     )
 
-    console.log(`Successfully exported ${componentName} to src/components/${componentName}`)
+    console.log(`\nSuccessfully exported ${componentName} to src/components/${componentName}`)
     console.log(`You can now edit the component in your project`)
+    console.log(`\nImport it using:`)
+    console.log(`import { Sarah${componentName} } from './components/${componentName}'`)
 
   } catch (error) {
     console.error('Failed to export component:', error)
   }
 }
 
-if (command === 'add') {
-  // Install the package
-  execSync(`npm install rezajaber-sarah-ui@latest`)
+async function main() {
+  switch (command) {
+    case 'add':
+      if (component) {
+        const componentName = component.charAt(0).toUpperCase() + component.slice(1)
+        await exportComponent(componentName)
+      } else {
+        console.error('Please specify a component name')
+        await listComponents()
+      }
+      break
 
-  // Export the component
-  if (component) {
-    exportComponent(component.charAt(0).toUpperCase() + component.slice(1))
+    case 'list':
+      await listComponents()
+      break
+
+    default:
+      console.log(`
+Sarah UI CLI
+
+Commands:
+  add <component>  Export a component to your project
+  list            List available components
+      `)
   }
 }
+
+main()
