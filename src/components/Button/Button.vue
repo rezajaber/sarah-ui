@@ -1,10 +1,19 @@
 <template>
   <button
     :class="[
-      'sarah-button',
-      `sarah-button--${variant}`,
-      `sarah-button--${size}`,
-      { 'sarah-button--disabled': disabled }
+      'rounded cursor-pointer font-medium transition-all duration-200 m-1',
+      // Primary variant
+      variant === 'primary' && 'bg-blue-500 text-white hover:bg-blue-600',
+      // Secondary variant
+      variant === 'secondary' && 'bg-gray-500 text-white hover:bg-gray-600',
+      // Outline variant
+      variant === 'outline' && 'bg-transparent border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white',
+      // Sizes
+      size === 'small' && 'px-3 py-1.5 text-sm',
+      size === 'medium' && 'px-4 py-2 text-base',
+      size === 'large' && 'px-6 py-3 text-lg',
+      // Disabled state
+      disabled && 'opacity-50 cursor-not-allowed hover:opacity-50'
     ]"
     :disabled="disabled"
     @click="$emit('click', $event)"
@@ -34,70 +43,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.sarah-button {
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  margin: 4px;
-}
-
-.sarah-button--primary {
-  background-color: #3b82f6;
-  color: white;
-  padding: 8px 16px;
-}
-
-.sarah-button--primary:hover {
-  background-color: #2563eb;
-}
-
-.sarah-button--secondary {
-  background-color: #6b7280;
-  color: white;
-  padding: 8px 16px;
-}
-
-.sarah-button--secondary:hover {
-  background-color: #4b5563;
-}
-
-.sarah-button--outline {
-  background-color: transparent;
-  border: 2px solid #3b82f6;
-  color: #3b82f6;
-  padding: 8px 16px;
-}
-
-.sarah-button--outline:hover {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.sarah-button--small {
-  padding: 6px 12px;
-  font-size: 14px;
-}
-
-.sarah-button--medium {
-  padding: 8px 16px;
-  font-size: 16px;
-}
-
-.sarah-button--large {
-  padding: 12px 24px;
-  font-size: 18px;
-}
-
-.sarah-button--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.sarah-button--disabled:hover {
-  opacity: 0.5;
-}
-</style>
